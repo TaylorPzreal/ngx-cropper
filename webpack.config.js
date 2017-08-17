@@ -40,7 +40,7 @@ module.exports = {
           {
             loader: 'tslint-loader',
             options: {
-              tsConfigFile: './tsconfig.json'
+              tsConfigFile: path.resolve(__dirname, 'tsconfig.json')
             }
           }
         ]
@@ -51,7 +51,7 @@ module.exports = {
           {
             loader: 'awesome-typescript-loader',
             options: {
-              configFileName: './tsconfig.json'
+              configFileName: path.resolve(__dirname, 'tsconfig.json')
             }
           },
           'angular2-template-loader'
@@ -60,40 +60,51 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html-loader',
-        include: ['src', 'sample']
+        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'sample')]
       },
       {
-      test: /\.css$/,
-      include: ['node_modules'],
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader',
-          options: {
-            sourceMap: true
-          }
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => {
-              return [
-                require('precss'),
-                require('autoprefixer')
-              ];
+        test: /\.(ttf|eot|woff|woff2|svg)([\w\?=\.]*)?$/,
+        use: 'file-loader',
+        include: [path.resolve(__dirname, 'node_modules/bootstrap/dist/fonts')]
+      },
+      {
+        test: /\.css$/,
+        include: [path.resolve(__dirname, 'node_modules')],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
             },
-            sourceMap: true
-          }
-        }]
-      })
-    },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => {
+                  return [require('precss'), require('autoprefixer')];
+                },
+                sourceMap: true
+              }
+            }
+          ]
+        })
+      },
       {
         test: /\.css$/,
         use: ['raw-loader'],
-        include: ['./src', './sample']
+        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'sample')]
       }
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jquery': 'jquery'
+    }),
+
     // 用于去掉浏览器console的warning
     new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, './sample', {}),
 
