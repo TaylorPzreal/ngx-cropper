@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-app',
-  // templateUrl: './app.component.html'
-  template: `
-    app test
-  `
+  templateUrl: './app.component.html'
 })
 
 export class AppComponent {
