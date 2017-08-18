@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import 'cropperjs/dist/cropper.min.css';
 import * as Cropper from 'cropperjs';
@@ -14,6 +14,8 @@ import { NgxCropperService } from './ngx-cropper.service';
 export class NgxCropperComponent implements OnInit {
   // define styles,url,filename,name
   public isShow: boolean = false;
+  @Input() private config: object;
+  @Output() private returnData: EventEmitter<string> = new EventEmitter<string>();
 
   private fileName: string;
   private fileType: string;

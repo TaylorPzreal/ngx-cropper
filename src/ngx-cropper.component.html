@@ -2,21 +2,22 @@
   <a class="btn btn-primary" onclick="document.getElementById('inputImage').click()">Upload Image</a>
   <input id="inputImage" type="file" class="hide" hidden>
 </section>
-<section id="crop-box" *ngIf="isShow === true">
-  <div class="crop-box-modal"></div>
-
-  <div class="crop-box-header">
-    <h3>调整你的照片的位置和尺寸</h3>
-  </div>
-
-  <div class="crop-box-body">
-    <figure style="height: 300px;">
-      <img id="cropper-image" class="full-width">
-    </figure>
-  </div>
-
-  <div class="crop-box-footer">
-    <a class="btn btn-default" (click)="onCancel()">Cancel</a>
-    <a class="btn btn-primary" (click)="onApply()">Apply</a>
+<section class="crop-container" *ngIf="isShow === true">
+  <div class="crop-box">
+    <div class="crop-box-header">
+      <h3>调整你的照片的位置和尺寸</h3>
+      <button type="button" class="crop-box-close" (click)="onCancel()">
+        <span></span>
+      </button>
+    </div>
+    <div class="crop-box-body">
+      <figure style="height: 300px;">
+        <img id="cropper-image" class="full-width">
+      </figure>
+    </div>
+    <div class="crop-box-footer">
+      <a class="btn btn-default" (click)="onCancel()">Cancel</a>
+      <a class="btn btn-primary" (click)="onApply()">Apply</a>
+    </div>
   </div>
 </section>
