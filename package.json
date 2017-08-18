@@ -2,7 +2,7 @@
   "name": "ngx-cropper",
   "version": "1.0.0-alpha",
   "description": "An angular2 & angular4 image plugin, includes upload cropper save to server",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --colors --profile --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
