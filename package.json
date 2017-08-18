@@ -1,6 +1,6 @@
 {
   "name": "ngx-cropper",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha",
   "description": "An angular2 & angular4 image plugin, includes upload cropper save to server",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,14 @@
   "dependencies": {
     "cropperjs": "^1.0.0-rc.3"
   },
+  "files": [
+    "src",
+    "sample",
+    "package.json",
+    "README.md",
+    "example.png",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@angular/common": "^4.3.5",
     "@angular/compiler": "^4.3.5",

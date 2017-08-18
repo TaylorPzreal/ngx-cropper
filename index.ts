@@ -1,0 +1,1 @@
+export { NgxCropperModule } from './src';
