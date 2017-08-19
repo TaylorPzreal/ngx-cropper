@@ -1,4 +1,4 @@
 <section>
   <h3>click below btn to select an image</h3>
-  <ngx-cropper></ngx-cropper>
+  <ngx-cropper [config]="ngxCropperConfig" (returnData)="onReturnData($event)"></ngx-cropper>
 </section>
