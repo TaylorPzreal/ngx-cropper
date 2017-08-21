@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/TaylorPzreal/ngx-cropper#readme",
   "dependencies": {
+    "@types/cropperjs": "0.0.26",
     "cropperjs": "^1.0.0-rc.3"
   },
   "files": [
@@ -44,7 +45,6 @@
     "@angular/platform-browser": "^4.3.5",
     "@angular/platform-browser-dynamic": "^4.3.5",
     "@types/chai": "^4.0.3",
-    "@types/cropperjs": "0.0.26",
     "@types/jquery": "^3.2.11",
     "@types/node": "^8.0.24",
     "@types/sinon": "^2.3.3",

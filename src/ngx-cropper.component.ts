@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import 'cropperjs/dist/cropper.min.css';
+import './ngx-cropper.component.css';
 import * as Cropper from 'cropperjs';
 
 import { NgxCropperService } from './ngx-cropper.service';
@@ -8,8 +9,31 @@ import { Config } from './ngx-cropper.model';
 
 @Component({
   selector: 'ngx-cropper',
-  templateUrl: './ngx-cropper.component.html',
-  styleUrls: ['./ngx-cropper.component.css'],
+  template: `
+    <section class="inline-block">
+      <a class="btn btn-primary" href="javascript: void(0)" [ngClass]="viewConfig.uploadBtnClass"  onclick="document.getElementById('inputImage').click()">{{viewConfig.uploadBtnName}}</a>
+      <input id="inputImage" type="file" class="hide" hidden>
+    </section>
+    <section class="crop-container" *ngIf="isShow === true">
+      <div class="crop-box">
+        <div class="crop-box-header">
+          <h3>{{viewConfig.title}}</h3>
+          <button type="button" class="crop-box-close" (click)="onCancel()">
+            <span></span>
+          </button>
+        </div>
+        <div class="crop-box-body">
+          <figure style="height: 300px;">
+            <img id="cropper-image" class="full-width">
+          </figure>
+        </div>
+        <div class="crop-box-footer">
+          <a class="btn btn-default" href="javascript: void(0)" [ngClass]="viewConfig.cancelBtnClass"  (click)="onCancel()">{{viewConfig.cancelBtnName}}</a>
+          <a class="btn btn-primary" href="javascript: void(0)" [ngClass]="viewConfig.applyBtnClass"  (click)="onApply()">{{viewConfig.applyBtnName}}</a>
+        </div>
+      </div>
+    </section>
+  `,
   providers: [NgxCropperService]
 })
 export class NgxCropperComponent implements OnInit {
@@ -23,7 +47,7 @@ export class NgxCropperComponent implements OnInit {
   private dom: HTMLInputElement;
   private cropper: Cropper;
 
-  constructor(private ngxCropperService: NgxCropperService) { }
+  constructor(private ngxCropperService: NgxCropperService) {}
 
   public ngOnInit() {
     // init config
@@ -75,9 +99,11 @@ export class NgxCropperComponent implements OnInit {
     if (blob.size > this.viewConfig.maxsize) {
       const currentSize = Math.ceil(blob.size / 1024);
       // sent message max then size.
-      this.returnData.emit(JSON.stringify({
-        a: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
-      }));
+      this.returnData.emit(
+        JSON.stringify({
+          a: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+        })
+      );
       return;
     }
 
@@ -89,17 +115,21 @@ export class NgxCropperComponent implements OnInit {
     this.ngxCropperService.save(url, fd).subscribe(
       (data: any) => {
         // return success
-        this.returnData.emit(JSON.stringify({
-          b: 'The image was sent to server successly'
-        }));
+        this.returnData.emit(
+          JSON.stringify({
+            b: 'The image was sent to server successly'
+          })
+        );
         // hidden modal
         this.onCancel();
       },
       (error: any) => {
         // return error
-        this.returnData.emit(JSON.stringify({
-          c: 'ERROR: When sent to server, something wrong, please check the server url.'
-        }));
+        this.returnData.emit(
+          JSON.stringify({
+            c: 'ERROR: When sent to server, something wrong, please check the server url.'
+          })
+        );
       }
     );
   }

@@ -68,3 +68,7 @@
 .crop-box .crop-box-close span::before {
   content: "x";
 }
+
+.inline-block {
+  display: inline-block;
+}
