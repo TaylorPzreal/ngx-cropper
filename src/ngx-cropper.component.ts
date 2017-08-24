@@ -11,7 +11,9 @@ import { Config } from './ngx-cropper.model';
   selector: 'ngx-cropper',
   template: `
     <section class="inline-block">
-      <a class="btn btn-primary" href="javascript: void(0)" [ngClass]="viewConfig.uploadBtnClass"  onclick="document.getElementById('inputImage').click()">{{viewConfig.uploadBtnName}}</a>
+      <a class="btn btn-primary" href="javascript: void(0)"
+      [ngClass]="viewConfig.uploadBtnClass"
+      onclick="document.getElementById('inputImage').click()">{{viewConfig.uploadBtnName}}</a>
       <input id="inputImage" type="file" class="hide" hidden>
     </section>
     <section class="crop-container" *ngIf="isShow === true">
@@ -28,8 +30,10 @@ import { Config } from './ngx-cropper.model';
           </figure>
         </div>
         <div class="crop-box-footer">
-          <a class="btn btn-default" href="javascript: void(0)" [ngClass]="viewConfig.cancelBtnClass"  (click)="onCancel()">{{viewConfig.cancelBtnName}}</a>
-          <a class="btn btn-primary" href="javascript: void(0)" [ngClass]="viewConfig.applyBtnClass"  (click)="onApply()">{{viewConfig.applyBtnName}}</a>
+          <a class="btn btn-default" href="javascript: void(0)"
+          [ngClass]="viewConfig.cancelBtnClass"  (click)="onCancel()">{{viewConfig.cancelBtnName}}</a>
+          <a class="btn btn-primary" href="javascript: void(0)"
+          [ngClass]="viewConfig.applyBtnClass"  (click)="onApply()">{{viewConfig.applyBtnName}}</a>
         </div>
       </div>
     </section>
@@ -117,7 +121,8 @@ export class NgxCropperComponent implements OnInit {
         // return success
         this.returnData.emit(
           JSON.stringify({
-            b: 'The image was sent to server successly'
+            b: 'The image was sent to server successly',
+            data
           })
         );
         // hidden modal
