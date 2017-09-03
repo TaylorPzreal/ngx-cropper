@@ -62,9 +62,23 @@ export class ExampleComponent {
     // do you want to do
     console.warn(JSON.parse(data));
     //  Here has three type of messages now
-    //  a: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
-    //  b: 'The image was sent to server successly'
-    //  c: ERROR: When sent to server, something wrong, please check the server url.'
+    {
+        code: 4000,
+        data: null,
+        msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+     }
+
+     {
+          code: 4001,
+          data: null,
+          msg: 'ERROR: When sent to server, something wrong, please check the server url.'
+      }
+
+      {
+          code: 2000,
+          data,
+          mdg: 'The image was sent to server successly'
+      }
   }
 }
 ```

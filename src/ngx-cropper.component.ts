@@ -105,7 +105,9 @@ export class NgxCropperComponent implements OnInit {
       // sent message max then size.
       this.returnData.emit(
         JSON.stringify({
-          a: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+          code: 4000,
+          data: null,
+          msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
         })
       );
       return;
@@ -121,8 +123,9 @@ export class NgxCropperComponent implements OnInit {
         // return success
         this.returnData.emit(
           JSON.stringify({
-            b: 'The image was sent to server successly',
-            data
+            code: 2000,
+            data,
+            mdg: 'The image was sent to server successly'
           })
         );
         // hidden modal
@@ -132,7 +135,9 @@ export class NgxCropperComponent implements OnInit {
         // return error
         this.returnData.emit(
           JSON.stringify({
-            c: 'ERROR: When sent to server, something wrong, please check the server url.'
+            code: 4001,
+            data: null,
+            msg: 'ERROR: When sent to server, something wrong, please check the server url.'
           })
         );
       }
