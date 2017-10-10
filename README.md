@@ -59,26 +59,31 @@ export class ExampleComponent {
 
   // deal callback data
   public onReturnData(data: any) {
-    // do you want to do
+    // Do what you want to do
     console.warn(JSON.parse(data));
+
+
     //  Here has three type of messages now
-    {
-        code: 4000,
-        data: null,
-        msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
-     }
+    //  1. Max size
+    // {
+    //     code: 4000,
+    //     data: null,
+    //     msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+    //  }
 
-     {
-          code: 4001,
-          data: null,
-          msg: 'ERROR: When sent to server, something wrong, please check the server url.'
-      }
+    //  2. Error
+    //  {
+    //       code: 4001,
+    //       data: null,
+    //       msg: 'ERROR: When sent to server, something wrong, please check the server url.'
+    //  }
 
-      {
-          code: 2000,
-          data,
-          mdg: 'The image was sent to server successly'
-      }
+    //  3. Success
+    //  {
+    //       code: 2000,
+    //       data,
+    //       msg: 'The image was sent to server successly'
+    //  }
   }
 }
 ```

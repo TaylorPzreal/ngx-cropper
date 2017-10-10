@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 import 'cropperjs/dist/cropper.min.css';
 import './ngx-cropper.component.css';
@@ -40,7 +40,7 @@ import { Config } from './ngx-cropper.model';
   `,
   providers: [NgxCropperService]
 })
-export class NgxCropperComponent implements OnInit {
+export class NgxCropperComponent implements OnInit, AfterViewInit {
   public isShow: boolean = false;
   public viewConfig: Config;
   @Input() private config: Config;
@@ -68,7 +68,9 @@ export class NgxCropperComponent implements OnInit {
       fdName: this.config.fdName || 'file',
       aspectRatio: this.config.aspectRatio || 1 / 1
     };
+  }
 
+  public ngAfterViewInit() {
     //  init upload btn
     const dom = (this.dom = document.getElementById('inputImage') as HTMLInputElement);
     this.dom.onchange = () => {
@@ -125,7 +127,7 @@ export class NgxCropperComponent implements OnInit {
           JSON.stringify({
             code: 2000,
             data,
-            mdg: 'The image was sent to server successly'
+            msg: 'The image was sent to server successly'
           })
         );
         // hidden modal
@@ -163,7 +165,10 @@ export class NgxCropperComponent implements OnInit {
    */
   private dataURItoBlob(dataURI: any) {
     const byteString = window.atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const mimeString = dataURI
+      .split(',')[0]
+      .split(':')[1]
+      .split(';')[0];
 
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
@@ -184,7 +189,6 @@ export class NgxCropperComponent implements OnInit {
    * @memberof NgxCropperComponent
    */
   private initCropper(): void {
-    console.warn(this.config);
     const cropBox = document.getElementById('cropper-image') as HTMLImageElement;
 
     this.cropper = new Cropper(cropBox, {

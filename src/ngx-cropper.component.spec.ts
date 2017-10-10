@@ -4,18 +4,18 @@ import { By } from '@angular/platform-browser';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
-describe('ngx-cropper Test', () => {
-  beforeEach(() => {
+window['describe']('ngx-cropper Test', () => {
+  window['beforeEach'](() => {
     TestBed.configureTestingModule({
       declarations: [NgxCropperComponent]
     });
   });
 
-  afterEach(() => {
+  window['afterEach'](() => {
     getTestBed().resetTestingModule();
   });
 
-  it('should display', () => {
+  window['it']('should display', () => {
     const fixture = TestBed.createComponent(NgxCropperComponent);
 
     fixture.detectChanges();
