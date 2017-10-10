@@ -71,26 +71,28 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    //  init upload btn
-    const dom = (this.dom = document.getElementById('inputImage') as HTMLInputElement);
-    this.dom.onchange = () => {
-      const files = dom.files;
+    //  init upload btn, after dom content loaded init down.
+    setTimeout(() => {
+      const dom = (this.dom = document.getElementById('inputImage') as HTMLInputElement);
+      this.dom.onchange = () => {
+        const files = dom.files;
 
-      if (files && files.length > 0) {
-        this.isShow = true;
+        if (files && files.length > 0) {
+          this.isShow = true;
 
-        setTimeout(() => {
-          this.initCropper();
+          setTimeout(() => {
+            this.initCropper();
 
-          const file = files[0];
-          const blobURL = URL.createObjectURL(file);
-          this.fileName = file.name;
-          this.fileType = file.type;
+            const file = files[0];
+            const blobURL = URL.createObjectURL(file);
+            this.fileName = file.name;
+            this.fileType = file.type;
 
-          this.cropper.replace(blobURL);
-        });
-      }
-    };
+            this.cropper.replace(blobURL);
+          });
+        }
+      };
+    }, 0);
   }
 
   /**
