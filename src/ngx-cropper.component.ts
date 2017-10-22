@@ -66,7 +66,8 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
       applyBtnName: this.config.applyBtnName || 'Apply',
       applyBtnClass: this.config.applyBtnClass || null,
       fdName: this.config.fdName || 'file',
-      aspectRatio: this.config.aspectRatio || 1 / 1
+      aspectRatio: this.config.aspectRatio || 1 / 1,
+      viewMode: this.config.viewMode || 0
     };
   }
 
@@ -196,7 +197,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
     this.cropper = new Cropper(cropBox, {
       aspectRatio: this.viewConfig.aspectRatio,
       autoCrop: true,
-      viewMode: 1,
+      viewMode: this.viewConfig.viewMode || 0,
       dragMode: 'move',
       guides: true,
       movable: true,

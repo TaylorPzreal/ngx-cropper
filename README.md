@@ -53,7 +53,8 @@ export class ExampleComponent {
       applyBtnName: 'Apply', // default Apply
       applyBtnClass: null, // default bootstrap styles, btn btn-primary
       fdName: 'file', // default 'file', this is  Content-Disposition: form-data; name="file"; filename="fire.jpg"
-      aspectRatio: 1 / 1// default 1 / 1, for example: 16 / 9, 4 / 3 ...
+      aspectRatio: 1 / 1, // default 1 / 1, for example: 16 / 9, 4 / 3 ...
+      viewMode: 0 // default 0, value can be 0, 1, 2, 3
     }
   }
 

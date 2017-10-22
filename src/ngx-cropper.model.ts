@@ -10,4 +10,5 @@ export class Config {
   public applyBtnClass: string;
   public fdName: string;
   public aspectRatio: number;
+  public viewMode: number; // 0, 1, 2, 3
 }
