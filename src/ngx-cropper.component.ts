@@ -85,6 +85,19 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
             this.initCropper();
 
             const file = files[0];
+
+            // Only can upload image format.
+            if (!/^(image\/*)/.test(file.type)) {
+              this.returnData.emit(
+                JSON.stringify({
+                  code: 4002,
+                  data: null,
+                  msg: `The type you can upload is only image format`
+                })
+              );
+              return;
+            }
+
             const blobURL = URL.createObjectURL(file);
             this.fileName = file.name;
             this.fileType = file.type;
@@ -111,7 +124,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
       this.returnData.emit(
         JSON.stringify({
           code: 4000,
-          data: null,
+          data: currentSize,
           msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
         })
       );

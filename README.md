@@ -79,7 +79,14 @@ export class ExampleComponent {
     //       msg: 'ERROR: When sent to server, something wrong, please check the server url.'
     //  }
 
-    //  3. Success
+    //  3. Image type error
+    // {
+    //       code: 4002,
+    //       data: null,
+    //       msg: `The type you can upload is only image format`
+    // }
+
+    //  4. Success
     //  {
     //       code: 2000,
     //       data,
