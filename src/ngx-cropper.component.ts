@@ -95,6 +95,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
                   msg: `The type you can upload is only image format`
                 })
               );
+              this.isShow = false;
               return;
             }
 
