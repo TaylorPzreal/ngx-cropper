@@ -95,3 +95,15 @@ export class ExampleComponent {
   }
 }
 ```
+
+## Development
+
+> Welcome you join us and develop together, it's my honor you commit pull request.
+
+```bash
+git clone git@github.com:TaylorPzreal/ngx-cropper.git
+
+npm run start # start developing
+
+npm run build # start building prod packages
+```

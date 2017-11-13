@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgxCropperModule } from '../../src';
+// import { NgxCropperModule } from '../../src';
+import { NgxCropperModule } from '../../dist';
 
 import { AppComponent } from './app.component';
 
