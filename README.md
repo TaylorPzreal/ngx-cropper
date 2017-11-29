@@ -37,12 +37,14 @@ import { NgxCropperModule } from 'ngx-cropper';
 ### 4. Config __example.component.ts__
 
 ```typescript
+import { NgxCropperOption } from 'ngx-cropper';
+
 @component()
 export class ExampleComponent {
   public ngxCropperConfig: object;
 
   constructor() {
-    this.ngxCropperConfig = {
+    this.ngxCropperConfig: NgxCropperOption = {
       url: null, // image server url
       maxsize: 512000, // image max size, default 500k = 512000bit
       title: 'Apply your image size and position', // edit modal title, this is default

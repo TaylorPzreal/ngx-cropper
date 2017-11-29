@@ -1,4 +1,4 @@
-export class Config {
+export class NgxCropperOption {
   public url: string;
   public maxsize: number;
   public title: string;

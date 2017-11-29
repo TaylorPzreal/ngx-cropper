@@ -5,7 +5,7 @@ import './ngx-cropper.component.css';
 import * as Cropper from 'cropperjs';
 
 import { NgxCropperService } from './ngx-cropper.service';
-import { Config } from './ngx-cropper.model';
+import { NgxCropperOption } from './ngx-cropper.model';
 
 @Component({
   selector: 'ngx-cropper',
@@ -42,8 +42,8 @@ import { Config } from './ngx-cropper.model';
 })
 export class NgxCropperComponent implements OnInit, AfterViewInit {
   public isShow: boolean = false;
-  public viewConfig: Config;
-  @Input() private config: Config;
+  public viewConfig: NgxCropperOption;
+  @Input() private config: NgxCropperOption;
   @Output() private returnData: EventEmitter<string> = new EventEmitter<string>();
 
   private fileName: string;
