@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgxCropperOption } from '../../dist';
 
 @Component({
   selector: 'ngx-app',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  public ngxCropperConfig: object;
+  public ngxCropperConfig: NgxCropperOption;
 
   constructor() {
     console.warn('test');
