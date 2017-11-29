@@ -1,6 +1,6 @@
 # ngx-cropper
 
-An Angular2 &amp; Angular4 image plugin, includes upload, cropper, save to server.
+An Angular5 image plugin, includes upload, cropper, save to server.
 
  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
