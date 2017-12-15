@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
-import 'cropperjs/dist/cropper.min.css';
-import './ngx-cropper.component.css';
 import * as Cropper from 'cropperjs';
 
 import { NgxCropperService } from './ngx-cropper.service';

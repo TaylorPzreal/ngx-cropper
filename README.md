@@ -20,6 +20,7 @@ An Angular5 image plugin, includes upload, cropper, save to server.
 
 ```typescript
 import { NgxCropperModule } from 'ngx-cropper';
+import 'ngx-cropper/dist/cropper.min.js'
 
 @NgModule({
   imports: [
