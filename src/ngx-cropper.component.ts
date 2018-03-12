@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
-import * as Cropper from 'cropperjs';
+import Cropper from 'cropperjs';
 
 import { NgxCropperService } from './ngx-cropper.service';
 import { NgxCropperOption } from './ngx-cropper.model';
