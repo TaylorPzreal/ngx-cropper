@@ -205,16 +205,21 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
    */
   private initCropper(): void {
     const cropBox = document.getElementById('cropper-image') as HTMLImageElement;
+    enum DragMode {
+      Crop = 'crop',
+      Move = 'move',
+      None = 'none',
+    }
 
-    this.cropper = new Cropper(cropBox, {
+    const options: Cropper.Options = {
       aspectRatio: this.viewConfig.aspectRatio,
       autoCrop: true,
       viewMode: this.viewConfig.viewMode || 0,
-      dragMode: 'move',
-      guides: true,
-      movable: true,
+      dragMode: DragMode.Move,
       cropBoxMovable: false,
       cropBoxResizable: false
-    });
+    };
+
+    this.cropper = new Cropper(cropBox, options);
   }
 }
