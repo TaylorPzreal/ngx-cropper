@@ -15,7 +15,7 @@ gulp.task('minify-css', () => {
   return gulp
     .src(cssList)
     .pipe(concat('ngx-cropper.min.css'))
-    .pipe(cleanCSS({}))
+    .pipe(cleanCSS())
     .pipe(gulp.dest('dist'));
 });
 

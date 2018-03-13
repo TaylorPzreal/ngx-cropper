@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgxCropperOption } from '../../dist';
-import '../../dist/ngx-cropper.min.css';
 
 @Component({
   selector: 'ngx-app',

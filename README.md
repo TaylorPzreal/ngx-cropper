@@ -20,7 +20,7 @@ An Angular5 image plugin, includes upload, cropper, save to server.
 
 ```typescript
 import { NgxCropperModule } from 'ngx-cropper';
-import 'ngx-cropper/dist/cropper.min.js'
+import 'ngx-cropper/dist/ngx-cropper.min.css';
 
 @NgModule({
   imports: [
@@ -58,7 +58,7 @@ export class ExampleComponent {
       fdName: 'file', // default 'file', this is  Content-Disposition: form-data; name="file"; filename="fire.jpg"
       aspectRatio: 1 / 1, // default 1 / 1, for example: 16 / 9, 4 / 3 ...
       viewMode: 0 // default 0, value can be 0, 1, 2, 3
-    }
+    };
   }
 
   // deal callback data
