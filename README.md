@@ -55,6 +55,10 @@ export class ExampleComponent {
       cancelBtnClass: null, // default bootstrap styles, btn btn-default
       applyBtnName: 'Apply', // default Apply
       applyBtnClass: null, // default bootstrap styles, btn btn-primary
+      errorMsgs: {  // These error msgs are to be displayed to the user (not the ones sent in returnData)
+        4000: null, // default `Max size allowed is ${maxsize}kb, current size is ${currentSize}kb`
+        4001: null  // default 'When sent to the server, something went wrong'
+      },
       fdName: 'file', // default 'file', this is  Content-Disposition: form-data; name="file"; filename="fire.jpg"
       aspectRatio: 1 / 1, // default 1 / 1, for example: 16 / 9, 4 / 3 ...
       viewMode: 0 // default 0, value can be 0, 1, 2, 3
@@ -71,15 +75,15 @@ export class ExampleComponent {
     //  1. Max size
     // {
     //     code: 4000,
-    //     data: null,
-    //     msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+    //     data: currentSize,
+    //     msg: `Max size allowed is ${this.viewConfig.maxsize / 1024}kb, current size is ${currentSize}kb`
     //  }
 
     //  2. Error
     //  {
     //       code: 4001,
     //       data: null,
-    //       msg: 'ERROR: When sent to server, something wrong, please check the server url.'
+    //       msg: 'ERROR: When sent to the server, something went wrong, please check the server url.'
     //  }
 
     //  3. Image type error
@@ -93,7 +97,7 @@ export class ExampleComponent {
     //  {
     //       code: 2000,
     //       data,
-    //       msg: 'The image was sent to server successly'
+    //       msg: 'The image was sent to the server successfully'
     //  }
   }
 }

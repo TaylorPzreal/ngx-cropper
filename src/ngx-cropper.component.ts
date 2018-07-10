@@ -9,9 +9,8 @@ import { NgxCropperOption } from './ngx-cropper.model';
   selector: 'ngx-cropper',
   template: `
     <section class="inline-block">
-      <a class="btn btn-primary" href="javascript: void(0)"
-      [ngClass]="viewConfig.uploadBtnClass"
-      (click)="inputImage.click()">{{viewConfig.uploadBtnName}}</a>
+      <button class="btn btn-primary" [ngClass]="viewConfig.uploadBtnClass"
+      (click)="inputImage.click()">{{viewConfig.uploadBtnName}}</button>
       <input #inputImage type="file" class="hide" hidden>
     </section>
     <section class="crop-container" *ngIf="isShow === true">
@@ -27,11 +26,12 @@ import { NgxCropperOption } from './ngx-cropper.model';
             <img id="cropper-image" class="full-width">
           </figure>
         </div>
+        <div *ngIf="error.length > 0" class="crop-box-error">{{ error }}</div>
         <div class="crop-box-footer">
-          <a class="btn btn-default" href="javascript: void(0)"
-          [ngClass]="viewConfig.cancelBtnClass"  (click)="onCancel()">{{viewConfig.cancelBtnName}}</a>
-          <a class="btn btn-primary" href="javascript: void(0)"
-          [ngClass]="viewConfig.applyBtnClass"  (click)="onApply()">{{viewConfig.applyBtnName}}</a>
+          <button class="btn btn-default"
+          [ngClass]="viewConfig.cancelBtnClass"  (click)="onCancel()">{{viewConfig.cancelBtnName}}</button>
+          <button class="btn btn-primary" [disabled]="applying"
+          [ngClass]="viewConfig.applyBtnClass"  (click)="onApply()">{{viewConfig.applyBtnName}}</button>
         </div>
       </div>
     </section>
@@ -39,15 +39,17 @@ import { NgxCropperOption } from './ngx-cropper.model';
   providers: [NgxCropperService]
 })
 export class NgxCropperComponent implements OnInit, AfterViewInit {
+  public error: string = '';
   public isShow: boolean = false;
+  public applying: boolean = false;
   public viewConfig: NgxCropperOption;
   @Input() private config: NgxCropperOption;
   @Output() private returnData: EventEmitter<string> = new EventEmitter<string>();
+
   @ViewChild('inputImage') inputImage: any;
 
   private fileName: string;
   private fileType: string;
-  private dom: HTMLInputElement;
   private cropper: Cropper;
 
   constructor(private ngxCropperService: NgxCropperService) {}
@@ -64,6 +66,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
       cancelBtnClass: this.config.cancelBtnClass || null,
       applyBtnName: this.config.applyBtnName || 'Apply',
       applyBtnClass: this.config.applyBtnClass || null,
+      errorMsgs: this.config.errorMsgs || {},
       fdName: this.config.fdName || 'file',
       aspectRatio: this.config.aspectRatio || 1 / 1,
       viewMode: this.config.viewMode || 0
@@ -115,6 +118,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
    * @memberof NgxCropperComponent
    */
   public onApply() {
+    this.applying = true;
     const blob = this.dataURItoBlob(this.cropper.getCroppedCanvas().toDataURL(this.fileType));
 
     if (blob.size > this.viewConfig.maxsize) {
@@ -124,9 +128,12 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
         JSON.stringify({
           code: 4000,
           data: currentSize,
-          msg: `The size is max than ${this.viewConfig.maxsize}, now size is ${currentSize}k`
+          msg: `Max size allowed is ${this.viewConfig.maxsize / 1024}kb, current size is ${currentSize}kb`
         })
       );
+      this.error =
+        this.viewConfig.errorMsgs['4000'] || `Max size allowed is ${this.viewConfig.maxsize / 1024}kb, Current size is ${currentSize}kb`;
+      this.applying = false;
       return;
     }
 
@@ -142,7 +149,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
           JSON.stringify({
             code: 2000,
             data,
-            msg: 'The image was sent to server successly'
+            msg: 'The image was sent to the server successfully'
           })
         );
         // hidden modal
@@ -154,9 +161,11 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
           JSON.stringify({
             code: 4001,
             data: null,
-            msg: 'ERROR: When sent to server, something wrong, please check the server url.'
+            msg: 'ERROR: When sent to the server, something went wrong, please check the server url.'
           })
         );
+        this.error = this.viewConfig.errorMsgs['4001'] || 'When sent to the server, something went wrong';
+        this.applying = false;
       }
     );
   }
@@ -167,7 +176,9 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
    * @memberof NgxCropperComponent
    */
   public onCancel() {
+    this.error = '';
     this.isShow = false;
+    this.applying = false;
     this.inputImage.nativeElement.value = '';
   }
 

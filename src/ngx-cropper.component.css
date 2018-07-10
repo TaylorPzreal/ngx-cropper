@@ -40,15 +40,17 @@
   padding: 10px;
 }
 
+.crop-box-error {
+  color: red;
+  text-align: center;
+  font-weight: 600;
+}
+
 .crop-box .crop-box-footer {
   border-top: 1px solid #ddd;
   padding: 10px;
   display: flex;
-  justify-content: flex-end;
-}
-
-.crop-box .crop-box-footer a:last-child {
-  margin-left: 5px;
+  justify-content: space-around;
 }
 
 .crop-box .crop-box-close {
@@ -66,7 +68,8 @@
 }
 
 .crop-box .crop-box-close span::before {
-  content: "x";
+  content: "×";
+  font-size: 25px;
 }
 
 .inline-block {
