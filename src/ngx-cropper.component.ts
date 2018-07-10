@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 
 import Cropper from 'cropperjs';
 
@@ -11,8 +11,8 @@ import { NgxCropperOption } from './ngx-cropper.model';
     <section class="inline-block">
       <a class="btn btn-primary" href="javascript: void(0)"
       [ngClass]="viewConfig.uploadBtnClass"
-      onclick="document.getElementById('inputImage').click()">{{viewConfig.uploadBtnName}}</a>
-      <input id="inputImage" type="file" class="hide" hidden>
+      (click)="inputImage.click()">{{viewConfig.uploadBtnName}}</a>
+      <input #inputImage type="file" class="hide" hidden>
     </section>
     <section class="crop-container" *ngIf="isShow === true">
       <div class="crop-box">
@@ -43,6 +43,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
   public viewConfig: NgxCropperOption;
   @Input() private config: NgxCropperOption;
   @Output() private returnData: EventEmitter<string> = new EventEmitter<string>();
+  @ViewChild('inputImage') inputImage: any;
 
   private fileName: string;
   private fileType: string;
@@ -72,9 +73,8 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit() {
     //  init upload btn, after dom content loaded init down.
     setTimeout(() => {
-      const dom = (this.dom = document.getElementById('inputImage') as HTMLInputElement);
-      this.dom.onchange = () => {
-        const files = dom.files;
+      this.inputImage.nativeElement.onchange = () => {
+        const files = this.inputImage.nativeElement.files;
 
         if (files && files.length > 0) {
           this.isShow = true;
@@ -168,6 +168,7 @@ export class NgxCropperComponent implements OnInit, AfterViewInit {
    */
   public onCancel() {
     this.isShow = false;
+    this.inputImage.nativeElement.value = '';
   }
 
   /**
