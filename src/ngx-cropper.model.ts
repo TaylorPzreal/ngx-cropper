@@ -8,6 +8,7 @@ export class NgxCropperOption {
   public cancelBtnClass?: string;
   public applyBtnName?: string;
   public applyBtnClass?: string;
+  public errorMsgs?: object;
   public fdName?: string;
   public aspectRatio?: number;
   public viewMode?: number; // 0, 1, 2, 3
