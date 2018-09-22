@@ -12,9 +12,11 @@
     "cp-css": "cp projects/cropper/src/lib/cropperjs.css dist/cropper/lib/cropperjs.css",
     "cp-img": "cp projects/cropper/example.png dist/cropper/example.png",
     "cp-license": "cp LICENSE dist/cropper/LICENSE",
-    "pack": "cd dist/cropper && npm pack"
+    "pack": "cd dist/cropper && npm pack",
+    "prepublishOnly": "npm run build-lib",
+    "publish-lib": "cd dist/cropper && npm publish"
   },
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "@angular/animations": "^6.1.0",
     "@angular/common": "^6.1.0",

@@ -1,4 +1,4 @@
-# ngx-cropper
+# ngx-cropper@2.0.0-beta
 
 An Angular image plugin, includes upload, cropper, save to server.
 
@@ -29,10 +29,10 @@ import { CropperModule } from 'ngx-cropper';
 ```
 
 Config global styles.
-If you use ```@angular/cli```, you could config global styles
+If you use ```@angular/cli```, you could config global styles at ```src/styles.css```.
 
 ```css
-@import '~cropper/lib/cropperjs.css';
+@import '~ngx-cropper/lib/cropperjs.css';
 ```
 
 ### 3. Config __example.component.html__
@@ -117,6 +117,9 @@ export class ExampleComponent {
 git clone git@github.com:TaylorPzreal/ngx-cropper.git
 
 ng serve # start developing
-
-ng build cropper# start building prod packages
+npm run build-lib # build ngx-cropper library
 ```
+
+## LICENSE
+
+[MIT](./LICENSE)

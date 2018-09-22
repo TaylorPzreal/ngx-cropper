@@ -1,10 +1,6 @@
 # NgxCropperWorkspace
 
-> The workspace for develop ngx-cropper library.
-
-## ngx-cropper@6.0.0
-
-> 6.x version just for match Angular's version
+> The workspace develop ngx-cropper library.
 
 ## Development server
 
@@ -31,3 +27,9 @@ ng build cropper --prod
 cd dist/cropper
 npm publish
 ```
+
+[ngx-cropper Docs](./projects/cropper/README.md)
+
+## LICENSE
+
+[MIT](./LICENSE)
