@@ -1,9 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const os = require('os');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const SERVER = {
   host: 'localhost',
@@ -11,8 +9,11 @@ const SERVER = {
 };
 
 module.exports = {
-  cache: true,
-  devtool: 'cheap-module-eval-source-map',
+  mode: 'development',
+  cache: {
+    type: 'filesystem'
+  },
+  devtool: 'eval-cheap-module-source-map',
 
   entry: {
     app: './sample/main.ts',
@@ -24,7 +25,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: `http://${SERVER.host}:${SERVER.port}/`,
     filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[id].chunk.js',
+    clean: true
   },
 
   resolve: {
@@ -34,28 +36,19 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
         test: /\.ts$/,
         use: [
           {
-            loader: 'tslint-loader',
+            loader: 'ts-loader',
             options: {
-              tsConfigFile: path.resolve(__dirname, 'tsconfig.json')
-            }
-          }
-        ]
-      },
-      {
-        test: /\.ts$/,
-        loaders: [
-          {
-            loader: 'awesome-typescript-loader',
-            options: {
-              configFileName: path.resolve(__dirname, 'tsconfig.json')
+              configFile: path.resolve(__dirname, 'tsconfig.json')
             }
           },
-          'angular2-template-loader'
-        ]
+          {
+            loader: 'angular2-template-loader'
+          }
+        ],
+        exclude: /node_modules/
       },
       {
         test: /\.html$/,
@@ -64,93 +57,75 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|woff|woff2|svg)([\w\?=\.]*)?$/,
-        use: 'file-loader',
+        type: 'asset/resource',
         include: [path.resolve(__dirname, 'node_modules/bootstrap/dist/fonts')]
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: () => {
-                  return [require('precss'), require('autoprefixer')];
-                },
-                sourceMap: true
-              }
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
             }
-          ]
-        })
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  require('autoprefixer')
+                ]
+              },
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jquery': 'jquery'
-    }),
-
-    // 用于去掉浏览器console的warning
-    new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, './sample', {}),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor']
-      // minChunks: 2
-    }),
     new HtmlWebpackPlugin({
       template: 'sample/index.html',
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'auto'
     }),
 
-    new webpack.LoaderOptionsPlugin({
-      htmlLoader: {
-        minimize: true // workaround for ng2
-      },
-      debug: true,
-      options: {
-        context: __dirname
-      }
-    }),
-
-    new ParallelUglifyPlugin({
-      workerCount: os.cpus().length,
-      cacheDir: '.cache/',
-      sourceMap: true,
-      uglifyJS: {
-        compress: {
-          warnings: true,
-          drop_debugger: false,
-          drop_console: false
-        },
-        // comments: DEVELOPMENT,
-        mangle: {
-          // Skip mangling these
-          reserved: ['$super', '$', 'exports', 'require'],
-          keep_fnames: true
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        default: false,
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+          priority: 20
         }
       }
-    }),
-
-    new ExtractTextPlugin('[name].css')
-  ],
+    }
+  },
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal',
+    static: {
+      directory: path.join(__dirname, 'dist')
+    },
     compress: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
+    watchFiles: {
+      paths: ['src/**/*', 'sample/**/*'],
+      options: {
+        aggregateTimeout: 300,
+        poll: 1000
+      }
     },
     host: SERVER.host,
-    port: SERVER.port
+    port: SERVER.port,
+    hot: true
   }
 };

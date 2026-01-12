@@ -7,7 +7,7 @@ import { NgxCropperOption } from '../../dist';
 })
 
 export class AppComponent {
-  public ngxCropperConfig: NgxCropperOption;
+  public ngxCropperConfig!: NgxCropperOption;
 
   constructor() {
     console.warn('test');
@@ -18,7 +18,7 @@ export class AppComponent {
     };
   }
 
-  public onReturnData(data: any) {
+  public onReturnData(data: string): void {
     console.warn(JSON.parse(data));
   }
 }

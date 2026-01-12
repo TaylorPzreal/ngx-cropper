@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NgxCropperService {
 
   constructor(private http: HttpClient) {}
@@ -17,7 +17,7 @@ export class NgxCropperService {
    * @returns
    * @memberof NgxCropperService
    */
-  public save(url: string, pdata: FormData) {
+  public save(url: string, pdata: FormData): Observable<any> {
     return this.http.post(url, pdata, {withCredentials: true});
   }
 }

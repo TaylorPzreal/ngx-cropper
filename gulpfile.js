@@ -11,7 +11,7 @@ gulp.task('copy-css', async () => {
 });
 
 gulp.task('minify-css', () => {
-  const cssList = ['node_modules/cropperjs/dist/cropper.min.css', 'src/ngx-cropper.component.css'];
+  const cssList = ['src/ngx-cropper.component.css'];
   return gulp
     .src(cssList)
     .pipe(concat('ngx-cropper.min.css'))
@@ -19,4 +19,4 @@ gulp.task('minify-css', () => {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['minify-css']);
+gulp.task('default', gulp.series('minify-css'));
